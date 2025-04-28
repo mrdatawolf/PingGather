@@ -13,6 +13,9 @@ PingGather is a simple script designed to ping multiple IP addresses and log the
 - For Windows: PowerShell
 - For Linux: Bash
 
+## New
+- Added a text file to sqlite script.
+
 ## Usage
 
 ### Windows (PowerShell)
@@ -24,8 +27,13 @@ PingGather is a simple script designed to ping multiple IP addresses and log the
 - `ResultFilePath` (Optional): The path and filename of the JSON file to write the results to. Defaults to a file in the current directory with a timestamp.
 <!-- INSTALL_COMMAND: curl -L -o ping_gather.ps1 https://raw.githubusercontent.com/mrdatawolf/PingGather/main/ping_gather.ps1; curl -L -o ping_gather.sh https://raw.githubusercontent.com/mrdatawolf/PingGather/main/ping_gather.sh -->
 <!-- RUN_COMMAND: .\ping_gather.ps1 "192.168.1.1","192.168.1.2","8.8.8.8" -->
+
 #### Example
 ```powershell
 .\ping_gather.ps1 "192.168.1.1","192.168.1.2","192.168.1.3" C:\Results.json
 
-
+#### TexttoSQLiteMigrationScript: `PingsToSQLITE.ps1`
+<!-- INSTALL_COMMAND: curl -L -o PingsToSQLite.ps1 https://raw.githubusercontent.com/mrdatawolf/PingGather/main/PingsToSQLite.ps1; -->
+<!-- RUN_COMMAND: .\PingsToSQLite.ps1 -->
+#### Example
+.\PingsToSQLite.ps1
