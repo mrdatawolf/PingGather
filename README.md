@@ -14,8 +14,10 @@ PingGather is a simple script designed to ping multiple IP addresses and log the
 - For Linux: Bash
 
 ## New
-- Added a text file to sqlite script.
+- Added a packet loss checker to the bash side.
 
+## Thanks
+- Thanks to https://gist.github.com/rwohleb/3d8242a7aaffa92aa76c90a238d4850f for the packet loss check
 ## Usage
 
 ### Windows (PowerShell)
@@ -37,3 +39,5 @@ PingGather is a simple script designed to ping multiple IP addresses and log the
 <!-- RUN_COMMAND: .\PingsToSQLite.ps1 -->
 #### Example
 .\PingsToSQLite.ps1
+
+
