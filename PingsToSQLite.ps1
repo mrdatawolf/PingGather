@@ -68,7 +68,7 @@ function Process-CsvFiles {
                 Initialize-Database -dbPath $databaseName
 
                 # Create table if it doesn't exist
-                $createTableQuery = "CREATE TABLE IF NOT EXISTS $tableName (" + ($columnNames -join " TEXT, ") + ", PRIMARY KEY (Domain, ComputerName, DateTime))"
+                $createTableQuery = "CREATE TABLE IF NOT EXISTS $tableName (" + ($columnNames -join " TEXT, ") + ", PRIMARY KEY (Domain, ComputerName, DateTime, LocationIP))"
                 Invoke-SQLiteQuery -DataSource $databaseName -Query $createTableQuery
 
                 # Create index if $indexColumn is not blank
