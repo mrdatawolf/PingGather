@@ -1,0 +1,14 @@
+/Examples
+server/package-lock.json
+/.claude
+
+# Built by npm install
+server/node_modules/
+
+# Auto-created by the server on first run
+server/pgdata/
+server/holding/
+server/inbox/completed/
+
+# Ping result data — machine-specific, not part of the repo
+server/inbox/*.csv

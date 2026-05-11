@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PingGather Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+</head>
+<body>
+  <header>
+    <h1>PingGather Dashboard</h1>
+    <div class="upload-area">
+      <a href="/collector.html" class="btn-secondary" style="text-decoration:none;">Collector</a>
+      <button id="processInboxBtn" class="btn-secondary">Process Inbox</button>
+      <input type="file" id="csvFile" accept=".csv">
+      <button id="uploadBtn">Upload CSV</button>
+      <span id="uploadStatus"></span>
+    </div>
+  </header>
+
+  <section class="filters">
+    <div class="filter-group">
+      <label for="filterHost">Host</label>
+      <select id="filterHost"><option value="">All</option></select>
+    </div>
+    <div class="filter-group">
+      <label for="filterDomain">Domain</label>
+      <select id="filterDomain"><option value="">All</option></select>
+    </div>
+    <div class="filter-group">
+      <label for="filterDest">Destination</label>
+      <select id="filterDest"><option value="">All</option></select>
+    </div>
+    <div class="filter-group">
+      <label for="filterStart">From</label>
+      <input type="datetime-local" id="filterStart">
+    </div>
+    <div class="filter-group">
+      <label for="filterEnd">To</label>
+      <input type="datetime-local" id="filterEnd">
+    </div>
+    <button id="applyFilters">Apply</button>
+    <button id="clearFilters" class="btn-secondary">Clear</button>
+    <div class="export-group">
+      <button id="exportCsv" class="btn-secondary">Export CSV</button>
+      <button id="exportJson" class="btn-secondary">Export JSON</button>
+    </div>
+  </section>
+
+  <section class="summary-cards">
+    <div class="card">
+      <div class="card-value" id="totalRecords">--</div>
+      <div class="card-label">Total Records</div>
+    </div>
+    <div class="card">
+      <div class="card-value" id="distinctDays">--</div>
+      <div class="card-label">Distinct Days</div>
+    </div>
+    <div class="card">
+      <div class="card-value" id="avgLatency">--</div>
+      <div class="card-label">Avg Latency (ms)</div>
+    </div>
+    <div class="card">
+      <div class="card-value" id="medianLatency">--</div>
+      <div class="card-label">Median Latency (ms)</div>
+    </div>
+    <div class="card">
+      <div class="card-value" id="p95Latency">--</div>
+      <div class="card-label">P95 Latency (ms)</div>
+    </div>
+    <div class="card card-alert">
+      <div class="card-value" id="timeoutCount">--</div>
+      <div class="card-label">Timeouts</div>
+    </div>
+  </section>
+
+  <section class="charts">
+    <div class="chart-container">
+      <h2>Median Latency by Destination Over Time</h2>
+      <canvas id="latencyChart"></canvas>
+    </div>
+    <div class="chart-container chart-small">
+      <h2>Latency by Host</h2>
+      <canvas id="hostChart"></canvas>
+    </div>
+  </section>
+
+  <section class="data-table-section">
+    <h2>Raw Data</h2>
+    <div class="table-controls">
+      <button id="prevPage" disabled>&laquo; Prev</button>
+      <span id="pageInfo">Page 1</span>
+      <button id="nextPage">Next &raquo;</button>
+    </div>
+    <div class="table-wrapper">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Host</th>
+            <th>Domain</th>
+            <th>Destination</th>
+            <th>Timestamp</th>
+            <th>Latency (ms)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sources-section">
+    <h2>Imported Files</h2>
+    <div id="sourcesList"></div>
+  </section>
+
+  <!-- Upload Progress Modal -->
+  <div id="uploadModal" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2 id="modalTitle">Importing CSV...</h2>
+      <div id="batchInfo" class="batch-info" hidden></div>
+      <div class="modal-steps">
+        <div class="step" id="stepParsing">
+          <span class="step-icon" id="iconParsing"></span>
+          <span>Parsing CSV</span>
+        </div>
+        <div class="step" id="stepInserting">
+          <span class="step-icon" id="iconInserting"></span>
+          <span>Upserting into database</span>
+        </div>
+        <div class="step" id="stepIndexing">
+          <span class="step-icon" id="iconIndexing"></span>
+          <span>Rebuilding indexes</span>
+        </div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="modal-detail" id="modalDetail">Preparing...</div>
+      <div class="modal-stats" id="modalStats" hidden>
+        <span id="statInserted"></span>
+        <span id="statSkipped"></span>
+      </div>
+      <button id="modalCloseBtn" hidden>Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

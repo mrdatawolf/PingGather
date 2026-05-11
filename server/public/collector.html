@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PingGather Collector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PingGather Collector</h1>
+    <a href="/" class="btn-secondary" style="text-decoration:none;">Dashboard</a>
+  </header>
+
+  <section class="collector-form">
+    <h2>Ping Targets</h2>
+    <div class="target-inputs">
+      <div class="filter-group">
+        <label for="ip1">Target 1 *</label>
+        <input type="text" id="ip1" placeholder="e.g. 192.168.1.1 or google.com">
+      </div>
+      <div class="filter-group">
+        <label for="ip2">Target 2</label>
+        <input type="text" id="ip2" placeholder="optional">
+      </div>
+      <div class="filter-group">
+        <label for="ip3">Target 3</label>
+        <input type="text" id="ip3" placeholder="optional">
+      </div>
+      <div class="filter-group">
+        <label for="ip4">Target 4</label>
+        <input type="text" id="ip4" placeholder="optional">
+      </div>
+    </div>
+
+    <h2>Options</h2>
+    <div class="option-inputs">
+      <div class="filter-group">
+        <label for="interval">Interval (seconds)</label>
+        <input type="number" id="interval" value="5" min="1" max="300">
+      </div>
+      <div class="filter-group">
+        <label for="duration">Duration (minutes)</label>
+        <input type="number" id="duration" value="0" min="0" max="1440">
+        <span class="hint">0 = run indefinitely</span>
+      </div>
+    </div>
+
+    <div class="collector-actions">
+      <button id="startBtn">Start Collecting</button>
+      <button id="stopBtn" class="btn-danger" hidden>Stop</button>
+    </div>
+  </section>
+
+  <section class="collector-status" id="statusSection" hidden>
+    <h2>Collection Status</h2>
+    <div class="status-card">
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot"></span>
+        <span id="statusText">Running</span>
+      </div>
+      <div class="status-details">
+        <div><strong>Targets:</strong> <span id="statusTargets">--</span></div>
+        <div><strong>Elapsed:</strong> <span id="statusElapsed">--</span></div>
+        <div><strong>Interval:</strong> <span id="statusInterval">--</span></div>
+        <div><strong>Output:</strong> <span id="statusFile">--</span></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="collector.js"></script>
+</body>
+</html>
